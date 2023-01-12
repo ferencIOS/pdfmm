@@ -462,13 +462,13 @@ void PdfIndirectObjectList::Finish()
         observer->Finish();
 }
 
-void PdfIndirectObjectList::BeginAppendStream(const PdfObjectStream& stream)
+void PdfIndirectObjectList::BeginAppendStream(PdfObjectStream& stream)
 {
     for (auto& observer : m_observers)
         observer->BeginAppendStream(stream);
 }
 
-void PdfIndirectObjectList::EndAppendStream(const PdfObjectStream& stream)
+void PdfIndirectObjectList::EndAppendStream(PdfObjectStream& stream)
 {
     for (auto& observer : m_observers)
         observer->EndAppendStream(stream);
@@ -516,6 +516,16 @@ PdfIndirectObjectList::iterator PdfIndirectObjectList::begin() const
 PdfIndirectObjectList::iterator PdfIndirectObjectList::end() const
 {
     return m_Objects.end();
+}
+
+PdfIndirectObjectList::reverse_iterator PdfIndirectObjectList::rbegin() const
+{
+    return m_Objects.rbegin();
+}
+
+PdfIndirectObjectList::reverse_iterator PdfIndirectObjectList::rend() const
+{
+    return m_Objects.rend();
 }
 
 size_t PdfIndirectObjectList::size() const

@@ -49,6 +49,7 @@ public:
     // the begin() and end() methods we wrap from the internal vector.
     // TODO: proper wrapper iterator class.
     using iterator = ObjectList::const_iterator;
+    using reverse_iterator = ObjectList::const_reverse_iterator;
 
     /** Every observer of PdfIndirectObjectList has to implement this interface.
      */
@@ -63,12 +64,12 @@ public:
         /** Called whenever appending to a stream is started.
          *  \param stream the stream object the user currently writes to.
          */
-        virtual void BeginAppendStream(const PdfObjectStream& stream) = 0;
+        virtual void BeginAppendStream(PdfObjectStream& stream) = 0;
 
         /** Called whenever appending to a stream has ended.
          *  \param stream the stream object the user currently writes to.
          */
-        virtual void EndAppendStream(const PdfObjectStream& stream) = 0;
+        virtual void EndAppendStream(PdfObjectStream& stream) = 0;
 
         virtual void Finish() = 0;
     };
@@ -227,12 +228,12 @@ public:
     /** Every stream implementation has to call this in BeginAppend
      *  \param stream the stream object that is calling
      */
-    void BeginAppendStream(const PdfObjectStream& stream);
+    void BeginAppendStream(PdfObjectStream& stream);
 
     /** Every stream implementation has to call this in EndAppend
      *  \param stream the stream object that is calling
      */
-    void EndAppendStream(const PdfObjectStream& stream);
+    void EndAppendStream(PdfObjectStream& stream);
 
     /**
      * Set the object count so that the object described this reference
@@ -339,6 +340,10 @@ public:
      *  \returns ending iterator
      */
     iterator end() const;
+
+    reverse_iterator rbegin() const;
+
+    reverse_iterator rend() const;
 
     size_t size() const;
 
